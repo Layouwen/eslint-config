@@ -1,9 +1,7 @@
 {
   "name": "@avanlan/eslint-config",
   "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/",
-    "branch": "avanlan/v3"
+    "access": "public"
   },
   "type": "module",
   "version": "3.12.3",
