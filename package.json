@@ -1,10 +1,12 @@
 {
   "name": "@avanlan/eslint-config",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "branch": "avanlan/v3"
   },
   "type": "module",
-  "version": "3.12.2",
+  "version": "3.12.3",
   "packageManager": "pnpm@9.15.1",
   "description": "AvanLan's ESLint config",
   "author": "AvanLan <layouwen@gmail.com> (https://github.com/layouwen/)",
