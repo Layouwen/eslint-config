@@ -12,6 +12,9 @@ export default antfu(
     typescript: true,
     formatters: true,
     type: 'lib',
+    stylistic: {
+      semi: false,
+    },
   },
   {
     ignores: [

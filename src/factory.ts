@@ -1,7 +1,9 @@
-import { isPackageExists } from 'local-pkg'
-import { FlatConfigComposer } from 'eslint-flat-config-utils'
 import type { Linter } from 'eslint'
-import type { Awaitable, ConfigNames, OptionsConfig, TypedFlatConfigItem } from './types'
+import { FlatConfigComposer } from 'eslint-flat-config-utils'
+import { isPackageExists } from 'local-pkg'
+import type { RuleOptions } from './typegen'
+import type { Awaitable, ConfigNames, OptionsConfig, StylisticConfig, TypedFlatConfigItem } from './types'
+
 import {
   astro,
   command,
@@ -32,7 +34,6 @@ import {
 import { interopDefault, isInEditorEnv } from './utils'
 import { formatters } from './configs/formatters'
 import { regexp } from './configs/regexp'
-import type { RuleOptions } from './typegen'
 
 const flatConfigProps: (keyof TypedFlatConfigItem)[] = [
   'name',
@@ -104,11 +105,14 @@ export function antfu(
       console.log('[@antfu/eslint-config] Detected running in editor, some rules are disabled.')
   }
 
+  // AvanLan Start
+  const stylisticDefaultOptions: StylisticConfig = {}
+
   const stylisticOptions = options.stylistic === false
     ? false
     : typeof options.stylistic === 'object'
-      ? options.stylistic
-      : {}
+      ? { ...stylisticDefaultOptions, ...options.stylistic }
+      : stylisticDefaultOptions
 
   if (stylisticOptions && !('jsx' in stylisticOptions))
     stylisticOptions.jsx = enableJsx
