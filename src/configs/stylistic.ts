@@ -7,7 +7,9 @@ export const StylisticConfigDefaults: StylisticConfig = {
   indent: 2,
   jsx: true,
   quotes: 'single',
-  semi: false,
+
+  // AvanLan Start
+  semi: true,
 }
 
 export interface StylisticOptions extends StylisticConfig, OptionsOverrides {
