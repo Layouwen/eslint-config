@@ -22,6 +22,16 @@ export async function formatters(
       xml: isPrettierPluginXmlInScope,
     }
   }
+  else {
+    options = {
+      css: true,
+      html: true,
+      markdown: true,
+      svg: true,
+      xml: true,
+      ...options,
+    }
+  }
 
   await ensurePackages([
     'eslint-plugin-format',
