@@ -1,7 +1,10 @@
 {
   "name": "@avanlan/eslint-config",
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
-  "version": "2.27.3",
+  "version": "2.27.4",
   "packageManager": "pnpm@9.9.0",
   "description": "AvanLan's ESLint config",
   "author": "AvanLan<layouwen@gmail.com> (https://github.com/layouwen/)",
