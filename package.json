@@ -4,7 +4,7 @@
     "access": "public"
   },
   "type": "module",
-  "version": "2.27.5",
+  "version": "2.27.6",
   "packageManager": "pnpm@9.9.0",
   "description": "AvanLan's ESLint config",
   "author": "AvanLan<layouwen@gmail.com> (https://github.com/layouwen/)",
