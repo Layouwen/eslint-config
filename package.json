@@ -1,13 +1,12 @@
 {
-  "name": "@antfu/eslint-config",
+  "name": "@avanlan/eslint-config",
   "type": "module",
   "version": "2.27.3",
   "packageManager": "pnpm@9.9.0",
-  "description": "Anthony's ESLint config",
-  "author": "Anthony Fu <anthonyfu117@hotmail.com> (https://github.com/antfu/)",
+  "description": "AvanLan's ESLint config",
+  "author": "AvanLan<layouwen@gmail.com> (https://github.com/layouwen/)",
   "license": "MIT",
-  "funding": "https://github.com/sponsors/antfu",
-  "homepage": "https://github.com/antfu/eslint-config",
+  "homepage": "https://github.com/layouwen/eslint-config",
   "keywords": [
     "eslint-config"
   ],
@@ -133,8 +132,8 @@
     "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "workspace:*",
     "@antfu/ni": "^0.22.4",
+    "@avanlan/eslint-config": "workspace:*",
     "@eslint-react/eslint-plugin": "^1.12.1",
     "@eslint/config-inspector": "^0.5.4",
     "@prettier/plugin-xml": "^3.4.1",
@@ -147,7 +146,7 @@
     "@unocss/eslint-plugin": "^0.62.3",
     "astro-eslint-parser": "^1.0.2",
     "bumpp": "^9.5.2",
-    "eslint": "^9.9.1",
+    "eslint": "~9.9.1",
     "eslint-plugin-astro": "^1.2.3",
     "eslint-plugin-format": "^0.1.2",
     "eslint-plugin-react-hooks": "^4.6.2",
