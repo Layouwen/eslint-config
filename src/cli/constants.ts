@@ -105,7 +105,7 @@ export const dependenciesMap = {
   react: [
     '@eslint-react/eslint-plugin',
     'eslint-plugin-react-hooks',
-    'eslint-plugin-react-refresh',
+    'eslint-plugin-react-refresh-avanlan',
   ],
   slidev: [
     'prettier-plugin-slidev',
