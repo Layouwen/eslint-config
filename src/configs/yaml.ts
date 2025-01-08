@@ -60,7 +60,7 @@ export async function yaml(
               'yaml/indent': ['error', indent === 'tab' ? 2 : indent],
               'yaml/key-spacing': 'error',
               'yaml/no-tab-indent': 'error',
-              'yaml/quotes': ['error', { avoidEscape: false, prefer: quotes }],
+              'yaml/quotes': ['error', { avoidEscape: false, prefer: quotes === 'single' ? 'single' : 'double' }],
               'yaml/spaced-comment': 'error',
             }
           : {},

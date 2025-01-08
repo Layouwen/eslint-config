@@ -26,7 +26,6 @@ export async function vue(
     parserVue,
     processorVueBlocks,
   ] = await Promise.all([
-    // @ts-expect-error missing types
     interopDefault(import('eslint-plugin-vue')),
     interopDefault(import('vue-eslint-parser')),
     interopDefault(import('eslint-processor-vue-blocks')),
@@ -78,15 +77,15 @@ export async function vue(
       processor: sfcBlocks === false
         ? pluginVue.processors['.vue']
         : mergeProcessors([
-          pluginVue.processors['.vue'],
-          processorVueBlocks({
-            ...sfcBlocks,
-            blocks: {
-              styles: true,
-              ...sfcBlocks.blocks,
-            },
-          }),
-        ]),
+            pluginVue.processors['.vue'],
+            processorVueBlocks({
+              ...sfcBlocks,
+              blocks: {
+                styles: true,
+                ...sfcBlocks.blocks,
+              },
+            }),
+          ]),
       rules: {
         ...pluginVue.configs.base.rules as any,
 
