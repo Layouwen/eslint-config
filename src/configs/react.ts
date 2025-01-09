@@ -28,7 +28,7 @@ export async function react(
   await ensurePackages([
     '@eslint-react/eslint-plugin',
     'eslint-plugin-react-hooks',
-    'eslint-plugin-react-refresh-avanlan',
+    'eslint-plugin-react-refresh',
   ])
 
   const tsconfigPath = options?.tsconfigPath
@@ -44,7 +44,7 @@ export async function react(
   ] = await Promise.all([
     interopDefault(import('@eslint-react/eslint-plugin')),
     interopDefault(import('eslint-plugin-react-hooks')),
-    interopDefault(import('eslint-plugin-react-refresh-avanlan')),
+    interopDefault(import('eslint-plugin-react-refresh')),
     interopDefault(import('@typescript-eslint/parser')),
   ] as const)
 
@@ -122,8 +122,6 @@ export async function react(
                     'action',
                   ]
                 : []),
-              // AvanLan Start
-              ...[{ pattern: 'Type$' }],
             ],
           },
         ],

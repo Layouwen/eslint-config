@@ -1,2 +1,2 @@
 declare module 'eslint-plugin-react-hooks'
-declare module 'eslint-plugin-react-refresh-avanlan'
+declare module 'eslint-plugin-react-refresh'
