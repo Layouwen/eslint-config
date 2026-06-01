@@ -1,10 +1,10 @@
-import type { Linter } from 'eslint'
-import type { RuleOptions } from './typegen'
-import type { Awaitable, ConfigNames, OptionsConfig, TypedFlatConfigItem } from './types'
+import type { Linter } from 'eslint';
+import type { RuleOptions } from './typegen';
+import type { Awaitable, ConfigNames, OptionsConfig, TypedFlatConfigItem } from './types';
 
-import { FlatConfigComposer } from 'eslint-flat-config-utils'
-import { findUpSync } from 'find-up-simple'
-import { isPackageExists } from 'local-pkg'
+import { FlatConfigComposer } from 'eslint-flat-config-utils';
+import { findUpSync } from 'find-up-simple';
+import { isPackageExists } from 'local-pkg';
 import {
   angular,
   astro,
@@ -35,12 +35,12 @@ import {
   unocss,
   vue,
   yaml,
-} from './configs'
-import { e18e } from './configs/e18e'
-import { formatters } from './configs/formatters'
-import { regexp } from './configs/regexp'
-import { GLOB_MARKDOWN } from './globs'
-import { interopDefault, isInEditorEnv } from './utils'
+} from './configs';
+import { e18e } from './configs/e18e';
+import { formatters } from './configs/formatters';
+import { regexp } from './configs/regexp';
+import { GLOB_MARKDOWN } from './globs';
+import { interopDefault, isInEditorEnv } from './utils';
 
 const flatConfigProps = [
   'name',
@@ -50,14 +50,14 @@ const flatConfigProps = [
   'plugins',
   'rules',
   'settings',
-] satisfies (keyof TypedFlatConfigItem)[]
+] satisfies (keyof TypedFlatConfigItem)[];
 
 const VuePackages = [
   'vue',
   'nuxt',
   'vitepress',
   '@slidev/cli',
-]
+];
 
 export const defaultPluginRenaming = {
   '@eslint-react': 'react',
@@ -70,7 +70,7 @@ export const defaultPluginRenaming = {
   'vitest': 'test',
 
   'yml': 'yaml',
-}
+};
 
 /**
  * Construct an array of ESLint flat config items.
@@ -110,26 +110,26 @@ export function antfu(
     unicorn: enableUnicorn = true,
     unocss: enableUnoCSS = false,
     vue: enableVue = VuePackages.some(i => isPackageExists(i)),
-  } = options
+  } = options;
 
-  let isInEditor = options.isInEditor
+  let isInEditor = options.isInEditor;
   if (isInEditor == null) {
-    isInEditor = isInEditorEnv()
+    isInEditor = isInEditorEnv();
     if (isInEditor)
       // eslint-disable-next-line no-console
-      console.log('[@antfu/eslint-config] Detected running in editor, some rules are disabled.')
+      console.log('[@antfu/eslint-config] Detected running in editor, some rules are disabled.');
   }
 
   const stylisticOptions = options.stylistic === false
     ? false
     : typeof options.stylistic === 'object'
       ? options.stylistic
-      : {}
+      : {};
 
   if (stylisticOptions && !('jsx' in stylisticOptions))
-    stylisticOptions.jsx = typeof enableJsx === 'object' ? true : enableJsx
+    stylisticOptions.jsx = typeof enableJsx === 'object' ? true : enableJsx;
 
-  const configs: Awaitable<TypedFlatConfigItem[]>[] = []
+  const configs: Awaitable<TypedFlatConfigItem[]>[] = [];
 
   if (enableGitignore) {
     if (typeof enableGitignore !== 'boolean') {
@@ -138,7 +138,7 @@ export function antfu(
           name: 'antfu/gitignore',
           ...enableGitignore,
         })]),
-      )
+      );
     }
     else {
       configs.push(
@@ -146,12 +146,12 @@ export function antfu(
           name: 'antfu/gitignore',
           strict: false,
         })]),
-      )
+      );
     }
   }
 
-  const typescriptOptions = resolveSubOptions(options, 'typescript')
-  const tsconfigPath = 'tsconfigPath' in typescriptOptions ? typescriptOptions.tsconfigPath : undefined
+  const typescriptOptions = resolveSubOptions(options, 'typescript');
+  const tsconfigPath = 'tsconfigPath' in typescriptOptions ? typescriptOptions.tsconfigPath : undefined;
 
   // Base configs
   configs.push(
@@ -162,20 +162,20 @@ export function antfu(
     }),
     comments(),
     command(),
-  )
+  );
 
   if (enablePerfectionist) {
     configs.push(
       perfectionist({
         overrides: getOverrides(options, 'perfectionist'),
       }),
-    )
+    );
   }
 
   if (enableNode) {
     configs.push(
       node(),
-    )
+    );
   }
 
   if (enableJsdoc) {
@@ -183,7 +183,7 @@ export function antfu(
       jsdoc({
         stylistic: stylisticOptions,
       }),
-    )
+    );
   }
 
   if (enableImports) {
@@ -192,7 +192,7 @@ export function antfu(
         stylistic: stylisticOptions,
         ...resolveSubOptions(options, 'imports'),
       }),
-    )
+    );
   }
 
   if (enableE18e) {
@@ -201,23 +201,23 @@ export function antfu(
         isInEditor,
         ...enableE18e === true ? {} : enableE18e,
       }),
-    )
+    );
   }
 
   if (enableUnicorn) {
     configs.push(
       unicorn(enableUnicorn === true ? {} : enableUnicorn),
-    )
+    );
   }
 
   if (enableVue) {
-    componentExts.push('vue')
+    componentExts.push('vue');
   }
 
   if (enableJsx) {
     configs.push(
       jsx(enableJsx === true ? {} : enableJsx),
-    )
+    );
   }
 
   if (enableTypeScript) {
@@ -228,7 +228,7 @@ export function antfu(
         overrides: getOverrides(options, 'typescript'),
         type: appType,
       }),
-    )
+    );
   }
 
   if (stylisticOptions) {
@@ -238,13 +238,13 @@ export function antfu(
         lessOpinionated: options.lessOpinionated,
         overrides: getOverrides(options, 'stylistic'),
       }),
-    )
+    );
   }
 
   if (enableRegexp) {
     configs.push(
       regexp(typeof enableRegexp === 'boolean' ? {} : enableRegexp),
-    )
+    );
   }
 
   if (options.test ?? true) {
@@ -253,7 +253,7 @@ export function antfu(
         isInEditor,
         overrides: getOverrides(options, 'test'),
       }),
-    )
+    );
   }
 
   if (enableVue) {
@@ -264,7 +264,7 @@ export function antfu(
         stylistic: stylisticOptions,
         typescript: !!enableTypeScript,
       }),
-    )
+    );
   }
 
   if (enableReact) {
@@ -275,7 +275,7 @@ export function antfu(
         overrides: getOverrides(options, 'react'),
         tsconfigPath,
       }),
-    )
+    );
   }
 
   if (enableNextjs) {
@@ -283,7 +283,7 @@ export function antfu(
       nextjs({
         overrides: getOverrides(options, 'nextjs'),
       }),
-    )
+    );
   }
 
   if (enableSolid) {
@@ -293,7 +293,7 @@ export function antfu(
         tsconfigPath,
         typescript: !!enableTypeScript,
       }),
-    )
+    );
   }
 
   if (enableSvelte) {
@@ -303,7 +303,7 @@ export function antfu(
         stylistic: stylisticOptions,
         typescript: !!enableTypeScript,
       }),
-    )
+    );
   }
 
   if (enableUnoCSS) {
@@ -312,7 +312,7 @@ export function antfu(
         ...resolveSubOptions(options, 'unocss'),
         overrides: getOverrides(options, 'unocss'),
       }),
-    )
+    );
   }
 
   if (enableAstro) {
@@ -321,13 +321,13 @@ export function antfu(
         overrides: getOverrides(options, 'astro'),
         stylistic: stylisticOptions,
       }),
-    )
+    );
   }
 
   if (enableAngular) {
     configs.push(angular({
       overrides: getOverrides(options, 'angular'),
-    }))
+    }));
   }
 
   if (options.jsonc ?? true) {
@@ -338,11 +338,11 @@ export function antfu(
       }),
       sortPackageJson(),
       sortTsconfig(),
-    )
+    );
   }
 
   if (enableCatalogs) {
-    const optionsPnpm = resolveSubOptions(options, 'pnpm')
+    const optionsPnpm = resolveSubOptions(options, 'pnpm');
     configs.push(
       pnpm({
         isInEditor,
@@ -350,7 +350,7 @@ export function antfu(
         yaml: options.yaml !== false,
         ...optionsPnpm,
       }),
-    )
+    );
   }
 
   if (options.yaml ?? true) {
@@ -359,7 +359,7 @@ export function antfu(
         overrides: getOverrides(options, 'yaml'),
         stylistic: stylisticOptions,
       }),
-    )
+    );
   }
 
   if (options.toml ?? true) {
@@ -368,7 +368,7 @@ export function antfu(
         overrides: getOverrides(options, 'toml'),
         stylistic: stylisticOptions,
       }),
-    )
+    );
   }
 
   if (options.markdown ?? true) {
@@ -377,7 +377,7 @@ export function antfu(
         componentExts,
         overrides: getOverrides(options, 'markdown'),
       }),
-    )
+    );
   }
 
   if (options.formatters) {
@@ -386,46 +386,54 @@ export function antfu(
         options.formatters,
         typeof stylisticOptions === 'boolean' ? {} : stylisticOptions,
       ),
-    )
+    );
+  }
+  else {
+    configs.push(
+      formatters(
+        true,
+        typeof stylisticOptions === 'boolean' ? {} : stylisticOptions,
+      ),
+    );
   }
 
   configs.push(
     disables(),
-  )
+  );
 
   if ('files' in options) {
-    throw new Error('[@antfu/eslint-config] The first argument should not contain the "files" property as the options are supposed to be global. Place it in the second or later config instead.')
+    throw new Error('[@antfu/eslint-config] The first argument should not contain the "files" property as the options are supposed to be global. Place it in the second or later config instead.');
   }
 
   // User can optionally pass a flat config item to the first argument
   // We pick the known keys as ESLint would do schema validation
   const fusedConfig = flatConfigProps.reduce((acc, key) => {
     if (key in options)
-      acc[key] = options[key] as any
-    return acc
-  }, {} as TypedFlatConfigItem)
+      acc[key] = options[key] as any;
+    return acc;
+  }, {} as TypedFlatConfigItem);
   if (Object.keys(fusedConfig).length)
-    configs.push([fusedConfig])
+    configs.push([fusedConfig]);
 
-  let composer = new FlatConfigComposer<TypedFlatConfigItem, ConfigNames>()
+  let composer = new FlatConfigComposer<TypedFlatConfigItem, ConfigNames>();
 
   composer = composer
     .append(
       ...configs,
       ...userConfigs as any,
-    )
+    );
 
   // Markdown uses the `markdown/gfm` language, whose `SourceCode` lacks JS-only
   // methods like `getAllComments`. Without this, any rule override registered
   // without a `files` constraint would apply globally and crash on `.md` files.
   // See https://github.com/antfu/eslint-config/issues/837.
   if (options.markdown ?? true) {
-    composer = composer.setDefaultIgnores(prev => [...prev, GLOB_MARKDOWN])
+    composer = composer.setDefaultIgnores(prev => [...prev, GLOB_MARKDOWN]);
   }
 
   if (autoRenamePlugins) {
     composer = composer
-      .renamePlugins(defaultPluginRenaming)
+      .renamePlugins(defaultPluginRenaming);
   }
 
   if (isInEditor) {
@@ -436,15 +444,15 @@ export function antfu(
         'prefer-const',
       ], {
         builtinRules: () => import(['eslint', 'use-at-your-own-risk'].join('/')).then(r => r.builtinRules),
-      })
+      });
   }
 
-  return composer
+  return composer;
 }
 
 export type ResolvedOptions<T> = T extends boolean
   ? never
-  : NonNullable<T>
+  : NonNullable<T>;
 
 export function resolveSubOptions<K extends keyof OptionsConfig>(
   options: OptionsConfig,
@@ -452,18 +460,18 @@ export function resolveSubOptions<K extends keyof OptionsConfig>(
 ): ResolvedOptions<OptionsConfig[K]> {
   return typeof options[key] === 'boolean'
     ? {} as any
-    : options[key] || {} as any
+    : options[key] || {} as any;
 }
 
 export function getOverrides<K extends keyof OptionsConfig>(
   options: OptionsConfig,
   key: K,
 ): Partial<Linter.RulesRecord & RuleOptions> {
-  const sub = resolveSubOptions(options, key)
+  const sub = resolveSubOptions(options, key);
   return {
     ...(options.overrides as any)?.[key],
     ...'overrides' in sub
       ? sub.overrides
       : {},
-  }
+  };
 }

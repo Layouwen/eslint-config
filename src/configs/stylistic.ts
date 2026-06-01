@@ -1,6 +1,6 @@
-import type { OptionsOverrides, StylisticConfig, TypedFlatConfigItem } from '../types'
-import { pluginAntfu } from '../plugins'
-import { interopDefault } from '../utils'
+import type { OptionsOverrides, StylisticConfig, TypedFlatConfigItem } from '../types';
+import { pluginAntfu } from '../plugins';
+import { interopDefault } from '../utils';
 
 export const StylisticConfigDefaults: StylisticConfig = {
   braceStyle: 'stroustrup',
@@ -8,11 +8,11 @@ export const StylisticConfigDefaults: StylisticConfig = {
   indent: 2,
   jsx: true,
   quotes: 'single',
-  semi: false,
-}
+  semi: true,
+};
 
 export interface StylisticOptions extends StylisticConfig, OptionsOverrides {
-  lessOpinionated?: boolean
+  lessOpinionated?: boolean;
 }
 
 export async function stylistic(
@@ -30,9 +30,9 @@ export async function stylistic(
   } = {
     ...StylisticConfigDefaults,
     ...options,
-  }
+  };
 
-  const pluginStylistic = await interopDefault(import('@stylistic/eslint-plugin'))
+  const pluginStylistic = await interopDefault(import('@stylistic/eslint-plugin'));
 
   const config = pluginStylistic.configs.customize({
     braceStyle,
@@ -42,7 +42,7 @@ export async function stylistic(
     pluginName: 'style',
     quotes,
     semi,
-  }) as TypedFlatConfigItem
+  }) as TypedFlatConfigItem;
 
   return [
     {
@@ -79,5 +79,5 @@ export async function stylistic(
         ...overrides,
       },
     },
-  ]
+  ];
 }

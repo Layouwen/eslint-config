@@ -1,6 +1,6 @@
 # @antfu/eslint-config
 
-[![npm](https://img.shields.io/npm/v/@antfu/eslint-config?color=444&label=)](https://npmjs.com/package/@antfu/eslint-config) [![code style](https://antfu.me/badge-code-style.svg)](https://github.com/antfu/eslint-config)
+[![npm](https://img.shields.io/npm/v/@avanlan/eslint-config?color=444&label=)](https://npmjs.com/package/@avanlan/eslint-config) [![code style](https://layouwen.me/badge-code-style.svg)](https://github.com/layouwen/eslint-config)
 
 - Auto fix for formatting (aimed to be used standalone **without** Prettier)
 - Reasonable defaults, best practices, only one line of config
@@ -33,7 +33,7 @@
 We provided a CLI tool to help you set up your project, or migrate from the legacy config to the new flat config with one command.
 
 ```bash
-pnpm dlx @antfu/eslint-config@latest
+pnpm dlx @avanlan/eslint-config@latest
 ```
 
 ### Manual Install
@@ -41,16 +41,16 @@ pnpm dlx @antfu/eslint-config@latest
 If you prefer to set up manually:
 
 ```bash
-pnpm i -D eslint @antfu/eslint-config
+pnpm i -D eslint @avanlan/eslint-config
 ```
 
 And create `eslint.config.mjs` in your project root:
 
 ```js
 // eslint.config.mjs
-import antfu from '@antfu/eslint-config'
+import avanlan from '@avanlan/eslint-config';
 
-export default antfu()
+export default avanlan();
 ```
 
 <details>
@@ -62,12 +62,12 @@ If you still use some configs from the legacy eslintrc format, you can use the [
 
 ```js
 // eslint.config.mjs
-import antfu from '@antfu/eslint-config'
-import { FlatCompat } from '@eslint/eslintrc'
+import avanlan from '@avanlan/eslint-config';
+import { FlatCompat } from '@eslint/eslintrc';
 
-const compat = new FlatCompat()
+const compat = new FlatCompat();
 
-export default antfu(
+export default avanlan(
   {
     ignores: [],
   },
@@ -81,7 +81,7 @@ export default antfu(
   })
 
   // Other flat configs...
-)
+);
 ```
 
 > Note that `.eslintignore` no longer works in Flat config, see [customization](#customization) for more details.
@@ -323,16 +323,16 @@ Normally you only need to import the `antfu` preset:
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
-export default antfu()
+export default antfu();
 ```
 
 And that's it! Or you can configure each integration individually, for example:
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu({
   // Type of the project. 'lib' for libraries, the default is 'app'
@@ -367,14 +367,14 @@ export default antfu({
   // Disable jsonc and yaml support
   jsonc: false,
   yaml: false,
-})
+});
 ```
 
 The `antfu` factory function also accepts any number of arbitrary custom config overrides:
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu(
   {
@@ -390,7 +390,7 @@ export default antfu(
   {
     rules: {},
   },
-)
+);
 ```
 
 Going more advanced, you can also import fine-grained configs and compose them as you wish:
@@ -420,7 +420,7 @@ import {
   unicorn,
   vue,
   yaml,
-} from '@antfu/eslint-config'
+} from '@antfu/eslint-config';
 
 export default combine(
   ignores(),
@@ -437,7 +437,7 @@ export default combine(
   yaml(),
   toml(),
   markdown(),
-)
+);
 ```
 
 </details>
@@ -486,7 +486,7 @@ Since v2.9.0, this preset will automatically rename the plugins also for your cu
 If you really want to use the original prefix, you can revert the plugin renaming by:
 
 ```ts
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu()
   .renamePlugins({
@@ -494,7 +494,7 @@ export default antfu()
     yaml: 'yml',
     node: 'n'
     // ...
-  })
+  });
 ```
 
 </details>
@@ -505,7 +505,7 @@ Certain rules would only be enabled in specific files, for example, `ts/*` rules
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu(
   {
@@ -525,7 +525,7 @@ export default antfu(
       'style/semi': ['error', 'never'],
     },
   }
-)
+);
 ```
 
 > [!NOTE]
@@ -535,7 +535,7 @@ We also provided the `overrides` options in each integration to make it easier:
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu({
   vue: {
@@ -553,7 +553,7 @@ export default antfu({
       // ...
     },
   },
-})
+});
 ```
 
 ### Config Composer
@@ -562,7 +562,7 @@ Since v2.10.0, the factory function `antfu()` returns a [`FlatConfigComposer` ob
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu()
   .prepend(
@@ -581,7 +581,7 @@ export default antfu()
   .renamePlugins({
     'old-prefix': 'new-prefix',
     // ...
-  })
+  });
 // ...
 ```
 
@@ -591,11 +591,11 @@ Vue support is detected automatically by checking if `vue` is installed in your 
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu({
   vue: true
-})
+});
 ```
 
 #### Vue 2
@@ -604,13 +604,13 @@ We have limited support for Vue 2 (as it's already [reached EOL](https://v2.vuej
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu({
   vue: {
     vueVersion: 2
   },
-})
+});
 ```
 
 As it's in maintenance mode, we only accept bug fixes for Vue 2. It might also be removed in the future when `eslint-plugin-vue` drops support for Vue 2. We recommend upgrading to Vue 3 if possible.
@@ -621,13 +621,13 @@ To enable Vue accessibility support, you need to explicitly turn it on:
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu({
   vue: {
     a11y: true
   },
-})
+});
 ```
 
 Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
@@ -646,7 +646,7 @@ Use external formatters to format files that ESLint cannot handle yet (`.css`, `
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu({
   formatters: {
@@ -667,7 +667,7 @@ export default antfu({
      */
     markdown: 'prettier'
   }
-})
+});
 ```
 
 Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
@@ -682,11 +682,11 @@ To enable React support, you need to explicitly turn it on:
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu({
   react: true,
-})
+});
 ```
 
 Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
@@ -701,11 +701,11 @@ To enable Next.js support, you need to explicitly turn it on:
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu({
   nextjs: true,
-})
+});
 ```
 
 Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
@@ -720,11 +720,11 @@ To enable svelte support, you need to explicitly turn it on:
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu({
   svelte: true,
-})
+});
 ```
 
 Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
@@ -739,11 +739,11 @@ To enable astro support, you need to explicitly turn it on:
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu({
   astro: true,
-})
+});
 ```
 
 Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
@@ -758,11 +758,11 @@ To enable Solid support, you need to explicitly turn it on:
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu({
   solid: true,
-})
+});
 ```
 
 Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
@@ -777,11 +777,11 @@ To enable UnoCSS support, you need to explicitly turn it on:
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu({
   unocss: true,
-})
+});
 ```
 
 Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
@@ -796,11 +796,11 @@ To enable Angular support, you need to explicitly turn it on:
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu({
   angular: true,
-})
+});
 ```
 
 Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
@@ -841,7 +841,7 @@ Will be transformed to this when you hit save with your editor or run `eslint --
 
 ```ts
 async function foo(msg: string): void {
-  console.log(msg)
+  console.log(msg);
 }
 ```
 
@@ -853,13 +853,13 @@ You can optionally enable the [type aware rules](https://typescript-eslint.io/li
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu({
   typescript: {
     tsconfigPath: 'tsconfig.json',
   },
-})
+});
 ```
 
 ### Prettier
@@ -867,14 +867,14 @@ export default antfu({
 If you're using prettier outside eslint, you can disable the config via etc:
 
 ```js
-import antfu from '@antfu/eslint-config'
-import prettierConflicts from 'eslint-config-prettier'
+import antfu from '@antfu/eslint-config';
+import prettierConflicts from 'eslint-config-prettier';
 
 export default antfu({
   rules: {
     'some-rule': 'off'
   }
-}, prettierConflicts)
+}, prettierConflicts);
 ```
 
 ### Editor Specific Disables
@@ -894,11 +894,11 @@ This is to prevent unused imports from getting removed by the editor during refa
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu({
   isInEditor: false
-})
+});
 ```
 
 ### Lint Staged
@@ -991,11 +991,11 @@ I am a very opinionated person, so as this config. I prefer the top-level functi
 I know they are not necessarily the popular opinions. If you really want to get rid of them, you can disable them with:
 
 ```ts
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu({
   lessOpinionated: true
-})
+});
 ```
 
 ### I prefer XXX...
@@ -1011,4 +1011,12 @@ Sure, you can configure and override rules locally in your project to fit your n
 
 ## License
 
-[MIT](./LICENSE) License &copy; 2019-PRESENT [Anthony Fu](https://github.com/antfu)
+[MIT](./LICENSE) License &copy; 2025-PRESENT [AvanLan](https://github.com/layouwen)
+
+## Custom
+
+- package.json adjust
+- LICENSE adjust
+- README.md adjust
+- stylistic.ts `semi: true` adjust
+- factory.ts `formatters` true adjust

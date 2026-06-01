@@ -1,11 +1,11 @@
-import type { OptionsFormatters, StylisticConfig, TypedFlatConfigItem } from '../types'
-import type { VendoredPrettierOptions, VendoredPrettierRuleOptions } from '../vender/prettier-types'
+import type { OptionsFormatters, StylisticConfig, TypedFlatConfigItem } from '../types';
+import type { VendoredPrettierOptions, VendoredPrettierRuleOptions } from '../vender/prettier-types';
 
-import { isPackageExists } from 'local-pkg'
-import { GLOB_ASTRO, GLOB_ASTRO_TS, GLOB_CSS, GLOB_GRAPHQL, GLOB_HTML, GLOB_LESS, GLOB_MARKDOWN, GLOB_POSTCSS, GLOB_SCSS, GLOB_SVG, GLOB_XML } from '../globs'
+import { isPackageExists } from 'local-pkg';
+import { GLOB_ASTRO, GLOB_ASTRO_TS, GLOB_CSS, GLOB_GRAPHQL, GLOB_HTML, GLOB_LESS, GLOB_MARKDOWN, GLOB_POSTCSS, GLOB_SCSS, GLOB_SVG, GLOB_XML } from '../globs';
 
-import { ensurePackages, interopDefault, isPackageInScope, parserPlain } from '../utils'
-import { StylisticConfigDefaults } from './stylistic'
+import { ensurePackages, interopDefault, isPackageInScope, parserPlain } from '../utils';
+import { StylisticConfigDefaults } from './stylistic';
 
 function mergePrettierOptions(
   options: VendoredPrettierOptions,
@@ -18,7 +18,7 @@ function mergePrettierOptions(
       ...(overrides.plugins || []),
       ...(options.plugins || []),
     ],
-  }
+  };
 }
 
 export async function formatters(
@@ -26,7 +26,9 @@ export async function formatters(
   stylistic: StylisticConfig = {},
 ): Promise<TypedFlatConfigItem[]> {
   if (options === true) {
-    const isPrettierPluginXmlInScope = isPackageInScope('@prettier/plugin-xml')
+    // eslint-disable-next-line no-console
+    console.log('avanlan formatters true');
+    const isPrettierPluginXmlInScope = isPackageInScope('@prettier/plugin-xml');
     options = {
       astro: isPackageInScope('prettier-plugin-astro'),
       css: true,
@@ -36,7 +38,7 @@ export async function formatters(
       slidev: isPackageExists('@slidev/cli'),
       svg: isPrettierPluginXmlInScope,
       xml: isPrettierPluginXmlInScope,
-    }
+    };
   }
 
   await ensurePackages([
@@ -44,10 +46,10 @@ export async function formatters(
     options.markdown && options.slidev ? 'prettier-plugin-slidev' : undefined,
     options.astro ? 'prettier-plugin-astro' : undefined,
     (options.xml || options.svg) ? '@prettier/plugin-xml' : undefined,
-  ])
+  ]);
 
   if (options.slidev && options.markdown !== true && options.markdown !== 'prettier')
-    throw new Error('`slidev` option only works when `markdown` is enabled with `prettier`')
+    throw new Error('`slidev` option only works when `markdown` is enabled with `prettier`');
 
   const {
     indent,
@@ -56,7 +58,7 @@ export async function formatters(
   } = {
     ...StylisticConfigDefaults,
     ...stylistic,
-  }
+  };
 
   const prettierOptions: VendoredPrettierOptions = Object.assign(
     {
@@ -69,14 +71,14 @@ export async function formatters(
       useTabs: indent === 'tab',
     } satisfies VendoredPrettierOptions,
     options.prettierOptions || {},
-  )
+  );
 
   const prettierXmlOptions: VendoredPrettierOptions = {
     xmlQuoteAttributes: 'double',
     xmlSelfClosingSpace: true,
     xmlSortAttributesByKey: false,
     xmlWhitespaceSensitivity: 'ignore',
-  }
+  };
 
   const dprintOptions = {
     indentWidth: typeof indent === 'number' ? indent : 2,
@@ -85,9 +87,9 @@ export async function formatters(
     // TODO: refine the type of `options.dprintOptions` in the future to avoid this ts comment.
     // @ts-expect-error - `options.dprintOptions` is boolean
     ...options.dprintOptions || {},
-  }
+  };
 
-  const pluginFormat = await interopDefault(import('eslint-plugin-format'))
+  const pluginFormat = await interopDefault(import('eslint-plugin-format'));
 
   const configs: TypedFlatConfigItem[] = [
     {
@@ -96,7 +98,7 @@ export async function formatters(
         format: pluginFormat,
       },
     },
-  ]
+  ];
 
   if (options.css) {
     configs.push(
@@ -145,7 +147,7 @@ export async function formatters(
           ],
         },
       },
-    )
+    );
   }
 
   if (options.html) {
@@ -163,7 +165,7 @@ export async function formatters(
           }),
         ],
       },
-    })
+    });
   }
 
   if (options.xml) {
@@ -184,7 +186,7 @@ export async function formatters(
           }),
         ],
       },
-    })
+    });
   }
   if (options.svg) {
     configs.push({
@@ -204,19 +206,19 @@ export async function formatters(
           }),
         ],
       },
-    })
+    });
   }
 
   if (options.markdown) {
     const formater = options.markdown === true
       ? 'prettier'
-      : options.markdown
+      : options.markdown;
 
     const GLOB_SLIDEV = !options.slidev
       ? []
       : options.slidev === true
         ? ['**/slides.md']
-        : options.slidev.files
+        : options.slidev.files;
 
     configs.push({
       files: [GLOB_MARKDOWN],
@@ -239,7 +241,7 @@ export async function formatters(
               },
         ],
       },
-    })
+    });
 
     if (options.slidev) {
       configs.push({
@@ -260,7 +262,7 @@ export async function formatters(
             }),
           ],
         },
-      })
+      });
     }
   }
 
@@ -282,7 +284,7 @@ export async function formatters(
           }),
         ],
       },
-    })
+    });
 
     configs.push({
       files: [GLOB_ASTRO, GLOB_ASTRO_TS],
@@ -296,7 +298,7 @@ export async function formatters(
         'style/quotes': 'off',
         'style/semi': 'off',
       },
-    })
+    });
   }
 
   if (options.graphql) {
@@ -314,8 +316,8 @@ export async function formatters(
           }),
         ],
       },
-    })
+    });
   }
 
-  return configs
+  return configs;
 }
