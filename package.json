@@ -1,7 +1,7 @@
 {
   "name": "@avanlan/eslint-config",
   "type": "module",
-  "version": "9.0.0",
+  "version": "9.0.1",
   "remoteVersion": "9.0.0",
   "packageManager": "pnpm@10.33.4",
   "description": "AvanLan's ESLint config",
