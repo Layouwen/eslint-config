@@ -1,5 +1,9 @@
 {
   "name": "@avanlan/eslint-config",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "type": "module",
   "version": "9.0.1",
   "remoteVersion": "9.0.0",
@@ -127,6 +131,7 @@
     "@e18e/eslint-plugin": "catalog:prod",
     "@eslint-community/eslint-plugin-eslint-comments": "catalog:prod",
     "@eslint/markdown": "catalog:prod",
+    "@rolldown/binding-darwin-arm64": "catalog:",
     "@stylistic/eslint-plugin": "catalog:prod",
     "@typescript-eslint/eslint-plugin": "catalog:prod",
     "@typescript-eslint/parser": "catalog:prod",
@@ -164,8 +169,8 @@
     "@angular-eslint/eslint-plugin-template": "catalog:peer",
     "@angular-eslint/template-parser": "catalog:peer",
     "@angular/core": "catalog:dev",
-    "@antfu/eslint-config": "workspace:*",
     "@antfu/ni": "catalog:dev",
+    "@avanlan/eslint-config": "workspace:*",
     "@eslint-react/eslint-plugin": "catalog:peer",
     "@eslint/config-inspector": "catalog:dev",
     "@next/eslint-plugin-next": "catalog:peer",
@@ -203,6 +208,7 @@
     "tsnapi": "catalog:dev",
     "tsx": "catalog:dev",
     "typescript": "catalog:dev",
+    "unrun": "catalog:",
     "vitest": "catalog:dev",
     "vue": "catalog:peer"
   },
@@ -224,10 +230,10 @@
   },
   "inlinedDependencies": {
     "@eslint-community/eslint-utils": "4.9.1",
-    "@typescript-eslint/scope-manager": "8.59.3",
-    "@typescript-eslint/types": "8.59.3",
-    "@typescript-eslint/utils": "8.59.3",
-    "@typescript-eslint/visitor-keys": "8.59.3",
+    "@typescript-eslint/scope-manager": "8.60.0",
+    "@typescript-eslint/types": "8.60.0",
+    "@typescript-eslint/utils": "8.60.0",
+    "@typescript-eslint/visitor-keys": "8.60.0",
     "cached-factory": "0.2.0",
     "eslint-plugin-erasable-syntax-only": "0.4.1",
     "eslint-visitor-keys": [

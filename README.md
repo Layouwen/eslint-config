@@ -1019,4 +1019,6 @@ Sure, you can configure and override rules locally in your project to fit your n
 - LICENSE adjust
 - README.md adjust
 - stylistic.ts `semi: true` adjust
-- factory.ts `formatters` true adjust
+- factory.ts `formatters` true default adjust
+- package.json dependencies `pnpm add -w -D unrun @rolldown/binding-darwin-arm64` adjust
+- package.json devDependencies adjust `"@antfu/eslint-config": "workspace:*",` to `"@avanlan/eslint-config": "workspace:*",`

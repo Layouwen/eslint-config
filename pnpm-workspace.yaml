@@ -1,15 +1,18 @@
 catalogMode: prefer
+
 ignoreWorkspaceRootCheck: true
+
 shamefullyHoist: true
 shellEmulator: true
 strictPeerDependencies: false
 trustPolicy: no-downgrade
 trustPolicyExclude:
   - cached-factory@0.1.0
-
 packages:
   - fixtures/*
-
+catalog:
+  '@rolldown/binding-darwin-arm64': ^1.0.3
+  unrun: ^0.3.0
 catalogs:
   dev:
     '@angular/core': ^21.2.12
@@ -101,7 +104,6 @@ catalogs:
     toml-eslint-parser: ^1.0.3
     vue-eslint-parser: ^10.4.0
     yaml-eslint-parser: ^2.0.0
-
 onlyBuiltDependencies:
   - esbuild
   - simple-git-hooks
